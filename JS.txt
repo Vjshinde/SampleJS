@@ -1,1 +1,279 @@
 added sample data
+import React, { useState, useEffect,Component } from 'react';
+import { View, Text, Platform, StyleSheet, TouchableOpacity, Animated, ScrollView, Image, Dimensions, LayoutAnimation, UIManager ,FlatList} from 'react-native';
+import {Picker} from '@react-native-picker/picker';
+const width = Dimensions.get('window').width;
+
+
+class Item extends Component 
+{
+constructor() 
+{
+super();
+this.animatedValue = new Animated.Value(0);
+if( Platform.OS === 'android' ) 
+{
+UIManager.setLayoutAnimationEnabledExperimental(true);
+} } 
+shouldComponentUpdate(nextProps, nextState) 
+{
+if(nextProps.item.id !== this.props.item.id) 
+{
+return true;
+} return false;
+}
+componentDidMount() 
+{
+Animated.timing( this.animatedValue, { toValue: 0.5, duration: 500, useNativeDriver: true } ).start(() => { this.props.afterAnimationComplete(); }); }
+removeItem = () => { Animated.timing( this.animatedValue, { toValue: 1, duration: 500, useNativeDriver: true } ).start(() => { this.props.removeItem(this.props.item.id); }); }
+render() { const translateAnimation = this.animatedValue.interpolate({ inputRange: [0, 0.5, 1], outputRange: [-width, 0, width] });
+
+const opacityAnimation = this.animatedValue.interpolate({ inputRange: [0, 0.5, 1], outputRange: [0, 1, 0] });
+return ( 
+<Animated.View style={[ styles.viewHolder, { transform: [{ translateX: translateAnimation}], opacity: opacityAnimation }]} >
+<Text style={styles.text}> Row {this.props.item.text} </Text>
+<TouchableOpacity style={styles.removeBtn} onPress={this.removeItem} >
+<Text>Add</Text>
+</TouchableOpacity> </Animated.View> ); } 
+} 
+
+const App =()=>
+{
+
+    const [State, setState] = useState([]);
+
+    const [disabled, setdisabled] = useState();
+    const [valueArray, setvalueArray] = useState([]);
+
+    const [selectedLanguage, setSelectedLanguage] = useState([]);
+
+    // setvalueArray([]);
+
+constructor() 
+{
+// state = { valueArray: [], disabled: false }
+addNewEle = false;
+index = 0; 
+
+}
+const afterAnimationComplete = () => 
+{
+index += 1; 
+setdisabled(false); 
+}
+const addMore = () => 
+{
+    // alert('add');
+addNewEle = true;
+// alert(valueArray.toString());
+// console.log(valueArray.toString()) 
+
+const newlyAddedValue = 
+{
+    id: "id_" + index,
+    text: index + 1 
+};
+function test()
+{
+    return(
+        <View>
+            <Text>Vijay</Text>
+        </View>
+    )
+}
+// setState({ disabled: true, valueArray: [...state.valueArray, newlyAddedValue] });
+setdisabled(true); 
+setvalueArray([...valueArray, newlyAddedValue]);
+
+setSelectedLanguage([...selectedLanguage, newlyAddedValue]);
+
+}
+
+function remove(id)
+{
+    // alert(id);
+addNewEle = false; 
+const newArray = valueArray;
+newArray.splice(newArray.findIndex(ele => ele.id === id), 1);
+// setState(() => {
+// return { valueArray: newArray } }, () => {
+// LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
+// });
+// alert(valueArray);
+setvalueArray([...valueArray]);
+
+// alert(newArray);
+// setvalueArray(() => {
+//     return { valueArray } }, () => {
+//     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
+//     });
+
+
+} 
+function test(idd)
+{
+    alert(idd);
+}
+
+saveInput = (e) => {
+
+    // this.setState({ input: e.target.value });
+    alert(e);
+    setState(e);
+    // alert(State);
+
+  };
+
+
+  addNewItem = (val,i,ind) => {
+
+    let markers = [...selectedLanguage];
+    let index = markers.findIndex(el => el.name === 'name');
+    markers[index] = {...markers[index], key: val};
+    alert(markers[index]);
+    setSelectedLanguage({markers});
+
+    // let markers = [ ...selectedLanguage ];
+    // markers[i] = {...markers[i], key: val};
+    // setSelectedLanguage(markers);
+
+    // setSelectedLanguage([ ...selectedLanguage,{
+    //     id:i,
+    //     value:val
+    // } ])
+
+
+    // setSelectedLanguage([...selectedLanguage,ind,val]);
+
+    // let newArray = [...selectedLanguage];
+    // newArray[ind] = val;
+    // setSelectedLanguage({array: newArray});
+        // alert(i);
+//         setSelectedLanguage([...selectedLanguage,i,val]);
+//     let markers = [...selectedLanguage];
+// markers[i] = {...markers[i], key: val};
+// setSelectedLanguage({ markers });
+
+// alert(selectedLanguage);
+    // setSelectedLanguage(prevState => {
+    //     prevState.selectedLanguage[ind] = val
+    //     return {
+    //         selectedLanguage: prevState.selectedLanguage
+    //     }
+    //   }
+
+    //   setSelectedLanguage(prevState => {
+    //     prevState.selectedLanguage[ind] = val;
+    //   }
+    //   );
+    //   setSelectedLanguage({val});
+    //   alert(selectedLanguage);
+
+    // let markers = selectedLanguage;
+    // markers[ind] = {...markers[ind], key: val};
+    // setSelectedLanguage(markers);
+    // alert(selectedLanguage);
+
+    // insertSomeThing(){
+    //     this.state.arr.push(index++)
+    //     this.setState({ arr: this.state.arr })
+    //     }
+
+    //   alert(selectedLanguage);
+    //   alert(ind);
+    // var newArray = [];
+    // newArray[ind] = val;
+    // alert(newArray);
+    // setState(newArray);
+    // alert(State);
+    // this.setState({array: newArray});
+    // setvalueArray([...valueArray, newArray]);
+
+    // setSelectedLanguage(val)
+    // setSelectedLanguage(val);
+    // alert(selectedLanguage);
+    // let { setSelectedLanguage, state } = selectedLanguage;
+
+    // setSelectedLanguage.push(index++);
+    // setSelectedLanguage({ selectedLanguage: selectedLanguage });
+    // alert(selectedLanguage);
+
+    // var val12 = val;
+    // let { setSelectedLanguage, val1 } = selectedLanguage;
+    // alert(selectedLanguage);
+    // setSelectedLanguage.push(selectedLanguage);
+
+    // let { selectedLanguage, val1212 } = setSelectedLanguage;
+        // alert(val);
+    // selectedLanguage.push(val);
+
+    // setSelectedLanguage([...selectedLanguage, val]);
+
+
+    // this.state.cart.push(this.state.input); // same as above, though bad practice 
+
+  };
+
+  function pri()
+  {
+      return selectedLanguage.map((item)=>{
+          return(
+              <Text>{item}</Text>
+          )
+      })
+  }
+
+return ( 
+<View style={styles.container}> 
+<ScrollView ref={scrollView => scrollView = scrollView} onContentSizeChange={()=> { 
+addNewEle && scrollView.scrollToEnd(); 
+}} > 
+<View style={{ flex: 1, padding: 4 }}>
+
+{valueArray.map(function(item, i){
+    var il = i;
+    // var String_3 = String_1.concat(" " , String_2);
+    return <Picker
+    selectedValue={selectedLanguage}
+    onValueChange={(itemValue, itemIndex) =>addNewItem([...selectedLanguage,i,itemValue])}>
+  <Picker.Item label="Java" value="java" />
+  <Picker.Item label="JavaScript" value="js" />
+  <Picker.Item label="Php" value="Php" />
+  <Picker.Item label="Jquery" value="Jquery" />
+  <Picker.Item label="Python" value="Python" />
+  <Picker.Item label="Ajax" value="Ajax" />
+</Picker>;
+
+})} 
+<Text>Vijay</Text>
+{selectedLanguage.map(function(item, i){
+    var il = i;
+    // var String_3 = String_1.concat(" " , String_2);
+    // return <Text>{i}</Text>;
+    return <Text>{i}</Text>;
+
+})} 
+
+
+
+
+</View> 
+</ScrollView>
+<TouchableOpacity activeOpacity={0.8} style={styles.btn} onPress={addMore} > 
+<Text>Add</Text>
+</TouchableOpacity> 
+</View> 
+);
+ } 
+
+const styles = StyleSheet.create({
+container: { flex: 1, backgroundColor: '#eee', justifyContent: 'center', paddingTop: (Platform.OS == 'ios') ? 20 : 0 },
+viewHolder: { paddingVertical: 15, backgroundColor: '#B00020', justifyContent: 'center', alignItems: 'flex-start', margin: 4, paddingLeft: 15, borderRadius: 10 },
+text: { color: 'white', fontSize: 25, paddingRight: 17 },
+btn: { position: 'absolute', right: 25, bottom: 25, borderRadius: 30, width: 60, height: 60, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.7)', padding: 15 },
+btnImage: { resizeMode: 'contain', width: '100%', tintColor: 'white' },
+removeBtn: { position: 'absolute', right: 13, width: 25, height: 25, borderRadius: 15, padding: 7, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white' },
+removeIcon: { width: '100%', transform: [{ rotate: '45deg' }], resizeMode: 'contain' } 
+});
+
+export default App
