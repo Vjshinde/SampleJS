@@ -1,0 +1,2 @@
+# SampleJS
+JS files
